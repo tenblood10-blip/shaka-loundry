@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shaka Laundry - Dashboard</title>
+<title>Shaka Laundry - Dashboard Bos</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:#0A1128;color:#fff;font-family:system-ui,sans-serif;padding-bottom:80px}
@@ -26,7 +26,7 @@ h1{font-size:22px;margin-bottom:14px}
 .list-card b{font-size:15px}
 .list-card small{color:#64748B;display:block;margin-top:4px;line-height:1.4}
 .badge{background:#14532D;color:#4ADE80;font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;white-space:nowrap}
-.badge-booster{background:#EF4444;color:#fff}.badge-slower{background:#22C55E;color:#fff}.badge-done{background:#9CA3AF;color:#fff}
+.badge-booster{background:#EF4444;color:#fff}.badge-slower{background:#22C55E;color:#fff}.badge-done{background:#9CA3AF;color:#fff}.badge-qris{background:#0EA5E9;color:#fff}.badge-tunai{background:#F59E0B;color:#fff}
 .search{width:100%;background:#16203A;border:none;color:#fff;padding:14px 16px;border-radius:999px;font-size:14px;outline:none}
 .filter{display:flex;gap:10px;margin:14px 0}
 .filter button{flex:1;padding:11px;border:none;border-radius:999px;font-weight:700;background:#16203A;color:#94A3B8}
@@ -60,6 +60,7 @@ h1{font-size:22px;margin-bottom:14px}
 .add-btn{background:#8B5CF6;color:#fff;border:none;padding:10px 16px;border-radius:999px;font-weight:700}
 .price{color:#C084FC;font-weight:900;font-size:17px}
 .prod-card{margin-bottom:12px}
+.link-box{background:#0F172A;border:1px dashed #34D399;border-radius:12px;padding:12px;font-size:12px;word-break:break-all;margin-top:10px}
 </style>
 </head>
 <body>
@@ -67,49 +68,29 @@ h1{font-size:22px;margin-bottom:14px}
 <div id="page-beranda" class="page active">
 <h1>Ringkasan Dashboard</h1>
 <div class="grid2">
-<div class="card"><div class="ic bg-green">$</div><div class="angka">Rp 2.250.000</div><div class="label">Total Omset</div><div class="sub">15 pembayaran diterima</div></div>
+<div class="card"><div class="ic bg-green">$</div><div class="angka" id="omsetHariIniBeranda">Rp 0</div><div class="label">Omset Hari Ini</div><div class="sub" id="jmlBayarHariIni">0 pembayaran hari ini</div></div>
 <div class="card"><div class="ic bg-blue">◉</div><div class="angka">15</div><div class="label">Pelanggan Aktif</div><div class="sub">0 belum aktif</div></div>
-<div class="card"><div class="ic bg-orange">▦</div><div class="angka">0</div><div class="label">Jadwal Hari Ini</div><div class="sub">0 sudah dicek</div></div>
+<div class="card"><div class="ic bg-orange">▦</div><div class="angka" id="jadwalHariIni">0</div><div class="label">Jadwal Hari Ini</div><div class="sub">Order masuk hari ini</div></div>
 <div class="card"><div class="ic bg-purple">▣</div><div class="angka">4</div><div class="label">Total Produk</div><div class="sub">Stok aman</div></div>
-<div class="card"><div class="ic bg-red">+</div><div class="angka">1</div><div class="label">Kurir Aktif</div><div class="sub">1 total kurir</div></div>
-<div class="card"><div class="ic bg-violet">~</div><div class="angka">12</div><div class="label">Cucian Tercatat</div><div class="sub">Total cucian</div></div>
 </div>
 <div class="section"><h1 style="font-size:18px">Pelanggan Terbaru</h1>
 <div class="list-card"><div><b>Dadan</b><small>085696336988</small></div><span class="badge">Aktif</span></div>
 <div class="list-card"><div><b>Ibu diany</b><small>089518170280</small></div><span class="badge">Aktif</span></div>
-<div class="list-card"><div><b>Ibu iis</b><small>0856369741258</small></div><span class="badge">Aktif</span></div>
 </div>
-<div class="section"><div class="list-card" style="display:block"><b>Jadwal Hari Ini</b><small style="margin-top:8px">Tidak ada jadwal hari ini</small></div></div>
+<div class="section"><div class="card"><b>🔗 Link Khusus Kurir</b><br><small style="color:#94A3B8">Kasih link ini ke kurir. Kurir cuma bisa input, gak bisa liat omset!</small><div class="link-box">https://tenblood10-blip.github.io/shaka-loundry/kurir.html</div><button class="btn btn-green" style="margin-top:10px" onclick="navigator.clipboard.writeText('https://tenblood10-blip.github.io/shaka-loundry/kurir.html');alert('Link kurir disalin!')">Salin Link Kurir</button></div></div>
 </div>
 <div id="page-omset" class="page">
-<h1>Kurir Keliling - Order Baru</h1>
-<button class="btn btn-green" onclick="document.getElementById('formKeliling').style.display='block'">+ Order Baru Keliling</button>
-<div id="formKeliling" style="display:none;margin-top:14px" class="card">
-<input class="input" id="fNama" placeholder="Nama Pelanggan - contoh: Ibu Siti">
-<input class="input" id="fHp" placeholder="No HP / WA - 0812xxxx">
-<input class="input" id="fAlamat" placeholder="Alamat Lengkap + Patokan">
-<div style="font-weight:700;margin-top:8px">Paket - Pilih 1</div>
-<div class="pkg">
-<label><input type="radio" name="paket" value="Booster" checked onclick="hitung()"><span>🔴 Booster<br>1 Hari<br><small>Rp 10.000 / kg</small></span></label>
-<label><input type="radio" name="paket" value="Slower" onclick="hitung()"><span>🟢 Slower<br>3 Hari<br><small>Rp 7.000 / kg</small></span></label>
-</div>
-<input class="input" id="fBerat" type="number" step="0.1" placeholder="Berat (kg) - timbang di depan pelanggan" oninput="hitung()">
-<div style="font-size:22px;font-weight:900;text-align:center;margin:10px 0" id="totalText">Total: Rp 0</div>
-<button class="btn btn-green" onclick="bayar('QRIS')">Bayar QRIS</button>
-<button class="btn btn-dark" style="margin-top:10px" onclick="bayar('MANUAL')">Bayar Manual / Tunai + Kuitansi</button>
-<div id="kuitansi" class="card" style="display:none;margin-top:12px;background:#0F172A">
-<b>SHAKA LAUNDRY</b><br><small id="kIsi"></small><br>
-<button class="btn btn-dark" style="margin-top:10px" onclick="window.print()">Cetak / Simpan Kuitansi</button>
-</div>
-</div>
-<div class="section"><h1 style="font-size:18px">Order Hari Ini</h1><div id="orderList"></div></div>
+<h1>Omset Hari Ini</h1>
+<div class="card" style="background:#14532D;border-color:#22C55E"><div style="font-size:13px;color:#BBF7D0">Selasa, 17 Nov 2026 - Pembayaran Masuk</div><div style="font-size:32px;font-weight:900;margin:8px 0" id="omsetHariIni">Rp 0</div><div style="display:flex;gap:10px"><span class="badge" id="badgeQRIS">QRIS: Rp 0</span><span class="badge" style="background:#92400E;color:#FDE68A" id="badgeTunai">Tunai: Rp 0</span><span class="badge" style="background:#1E3A8A;color:#BFDBFE" id="badgeOrder">0 Order</span></div></div>
+<div class="filter"><button class="active" onclick="filterOmset('semua',this)">Semua</button><button onclick="filterOmset('QRIS',this)">QRIS</button><button onclick="filterOmset('TUNAI',this)">Tunai</button></div>
+<div class="section"><h1 style="font-size:18px">Detail Pembayaran Masuk Hari Ini</h1><div id="omsetList"></div></div>
 </div>
 <div id="page-pelanggan" class="page">
 <h1>Data Pelanggan</h1>
 <input class="search" placeholder="🔍  Cari nama atau telepon...">
 <div class="filter"><button class="active">Semua</button><button>Aktif</button><button>Belum</button></div>
-<div class="list-card"><div style="display:flex;gap:12px"><div class="avatar">D</div><div><b>Dadan</b><small>085696336988</small><small>Alamat: Cidahu selatan no 4<br>Pembayaran: 1x | Jadwal: 4x<br>Daftar: 23/10/2026</small></div></div><span class="badge">Aktif</span></div>
-<div class="list-card"><div style="display:flex;gap:12px"><div class="avatar">I</div><div><b>Ibu diany</b><small>089518170280</small><small>Alamat: Puri Cipageran indah 1 no 12<br>Pembayaran: 1x | Jadwal: 4x<br>Daftar: 18/10/2026</small></div></div><span class="badge">Aktif</span></div>
+<div class="list-card"><div style="display:flex;gap:12px"><div class="avatar">D</div><div><b>Dadan</b><small>085696336988</small><small>Alamat: Cidahu selatan no 4</small></div></div><span class="badge">Aktif</span></div>
+<div class="list-card"><div style="display:flex;gap:12px"><div class="avatar">I</div><div><b>Ibu diany</b><small>089518170280</small><small>Alamat: Puri Cipageran indah 1 no 12</small></div></div><span class="badge">Aktif</span></div>
 </div>
 <div id="page-kalender" class="page">
 <h1>Kalender Pelanggan Aktif</h1>
@@ -120,14 +101,14 @@ h1{font-size:22px;margin-bottom:14px}
 <div class="legend"><span>🟡 Ada kunjungan</span><span>🔴 Minggu (libur)</span></div>
 <div style="margin-top:12px;font-size:12px;line-height:1.5">🔴 Merah = Booster &nbsp; 🟢 Hijau = Slower &nbsp; ⚪ Abu = Sudah Dikirim</div>
 </div>
-<div class="card" style="margin-top:12px"><b>Pilih tanggal untuk lihat jadwal</b><br><small style="color:#64748B">Klik tanggal di kalender untuk melihat detail</small><div id="detailTanggal" style="margin-top:10px"></div></div>
+<div class="card" style="margin-top:12px"><b>Pilih tanggal untuk lihat jadwal</b><div id="detailTanggal" style="margin-top:10px"></div></div>
 </div>
 <div id="page-produk" class="page">
 <div class="prod-head"><h1 style="margin:0">Produk & Inventory</h1><button class="add-btn">+ Tambah</button></div>
 <div class="card prod-card"><div style="display:flex;justify-content:space-between"><div class="ic bg-red">🔴</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Cuci + Setrika Booster</b><br><small style="color:#64748B">Selesai 1 Hari - Antar Jemput</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 10.000 / kg</span><span class="badge badge-booster">Booster</span></div><small style="color:#64748B">Kategori: Cuci Kiloan</small></div>
 <div class="card prod-card"><div style="display:flex;justify-content:space-between"><div class="ic bg-green">🟢</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Cuci + Setrika Slower</b><br><small style="color:#64748B">Selesai 3 Hari - Antar Jemput</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 7.000 / kg</span><span class="badge badge-slower">Slower</span></div><small style="color:#64748B">Kategori: Cuci Kiloan</small></div>
 <div class="card prod-card"><div style="display:flex;justify-content:space-between"><div class="ic bg-blue">🛏️</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Bed Cover / Selimut</b><br><small style="color:#64748B">Cuci satuan, wangi & lembut</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 25.000 / pcs</span><span class="badge">Stok: Ready</span></div><small style="color:#64748B">Kategori: Satuan</small></div>
-<div class="card prod-card"><div style="display:flex;justify-content:space-between"><div class="ic bg-purple">👟</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Sepatu / Tas</b><br><small style="color:#64748B">Cuci deep clean, tidak merusak bahan</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 20.000 / pasang</span><span class="badge">Stok: Ready</span></div><small style="color:#64748B">Kategori: Satuan</small></div>
+<div class="card prod-card"><div style="display:flex;justify-content:space-between"><div class="ic bg-purple">👟</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Sepatu / Tas</b><br><small style="color:#64748B">Cuci deep clean</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 20.000 / pasang</span><span class="badge">Stok: Ready</span></div><small style="color:#64748B">Kategori: Satuan</small></div>
 </div>
 <div class="bottom">
 <button class="active" onclick="pindah('beranda',this)"><span class="ic2">▦</span>Beranda</button>
@@ -138,39 +119,48 @@ h1{font-size:22px;margin-bottom:14px}
 </div>
 <script>
 const HARGA={Booster:10000,Slower:7000};
+// DATA HARI INI - 17 Nov 2026 - NANTI DATA DARI KURIR MASUK SINI
+let pembayaranHariIni=[
+{nama:'Ibu Siti',paket:'Booster',berat:5,total:50000,metode:'QRIS',jam:'09:12',no:'SHK-12345',status:'LUNAS'},
+{nama:'Dadan',paket:'Slower',berat:4,total:28000,metode:'TUNAI',jam:'10:05',no:'SHK-12346',status:'LUNAS'},
+{nama:'Ibu diany',paket:'Booster',berat:3,total:30000,metode:'QRIS',jam:'11:20',no:'SHK-12347',status:'LUNAS'},
+{nama:'Ibu iis',paket:'Slower',berat:6,total:42000,metode:'TUNAI',jam:'13:40',no:'SHK-12348',status:'BAYAR SAAT ANTAR'},
+];
 let orders=[
 {nama:'Ibu Siti',paket:'Booster',tglAntar:2,status:'belum'},
 {nama:'Dadan',paket:'Slower',tglAntar:2,status:'belum'},
 {nama:'Ibu diany',paket:'Slower',tglAntar:5,status:'belum'},
 {nama:'Ibu iis',paket:'Booster',tglAntar:6,status:'selesai'},
 ];
+let filterAktif='semua';
 function pindah(page,btn){
 document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
 document.getElementById('page-'+page).classList.add('active');
 document.querySelectorAll('.bottom button').forEach(b=>b.classList.remove('active'));
 btn.classList.add('active');
-const titles={beranda:'Ringkasan',omset:'Omset',pelanggan:'Pelanggan',kalender:'Kalender',produk:'Produk'};
+const titles={beranda:'Ringkasan',omset:'Omset Hari Ini',pelanggan:'Pelanggan',kalender:'Kalender',produk:'Produk'};
 document.getElementById('topTitle').innerText=titles[page];
 window.scrollTo(0,0);
 }
-function hitung(){
-const berat=parseFloat(document.getElementById('fBerat').value||0);
-const paket=document.querySelector('input[name="paket"]:checked').value;
-const total=berat*HARGA[paket];
-document.getElementById('totalText').innerText='Total: Rp '+total.toLocaleString('id-ID');
+function renderOmset(){
+const list=pembayaranHariIni.filter(p=>filterAktif==='semua'||p.metode===filterAktif);
+const total=pembayaranHariIni.reduce((a,b)=>a+b.total,0);
+const totalQRIS=pembayaranHariIni.filter(p=>p.metode==='QRIS').reduce((a,b)=>a+b.total,0);
+const totalTunai=pembayaranHariIni.filter(p=>p.metode==='TUNAI').reduce((a,b)=>a+b.total,0);
+document.getElementById('omsetHariIni').innerText='Rp '+total.toLocaleString('id-ID');
+document.getElementById('omsetHariIniBeranda').innerText='Rp '+total.toLocaleString('id-ID');
+document.getElementById('jmlBayarHariIni').innerText=pembayaranHariIni.length+' pembayaran hari ini';
+document.getElementById('jadwalHariIni').innerText=pembayaranHariIni.length;
+document.getElementById('badgeQRIS').innerText='QRIS: Rp '+totalQRIS.toLocaleString('id-ID');
+document.getElementById('badgeTunai').innerText='Tunai: Rp '+totalTunai.toLocaleString('id-ID');
+document.getElementById('badgeOrder').innerText=pembayaranHariIni.length+' Order';
+document.getElementById('omsetList').innerHTML=list.map(p=>'<div class="list-card"><div><b>'+p.nama+' - '+p.paket+'</b><small>'+p.berat+' kg x Rp '+(p.total/p.berat).toLocaleString('id-ID')+' = Rp '+p.total.toLocaleString('id-ID')+'<br>No: '+p.no+' | Jam: '+p.jam+' | '+p.status+'</small></div><span class="badge '+(p.metode==='QRIS'?'badge-qris':'badge-tunai')+'">'+p.metode+'</span></div>').join('') || '<div class="card">Belum ada pembayaran hari ini</div>';
 }
-function bayar(metode){
-const nama=document.getElementById('fNama').value||'Pelanggan';
-const berat=parseFloat(document.getElementById('fBerat').value||0);
-const paket=document.querySelector('input[name="paket"]:checked').value;
-const total=berat*HARGA[paket];
-const no='SHK-'+Math.floor(10000+Math.random()*90000);
-const k=document.getElementById('kuitansi');
-k.style.display='block';
-document.getElementById('kIsi').innerHTML='No: '+no+' | Tgl: 17 Nov 2026<br>Nama: '+nama+' | '+berat+' kg x '+HARGA[paket].toLocaleString('id-ID')+' = Rp '+total.toLocaleString('id-ID')+'<br>Paket: '+paket+' | Bayar: '+metode+'<br>Status: '+(metode==='QRIS'?'LUNAS':'BAYAR SAAT ANTAR');
-const list=document.getElementById('orderList');
-list.innerHTML='<div class="list-card"><div><b>'+nama+' - '+paket+'</b><small>'+berat+' kg - Rp '+total.toLocaleString('id-ID')+' - '+no+'</small></div><span class="badge '+(paket==='Booster'?'badge-booster':'badge-slower')+'">'+paket+'</span></div>'+list.innerHTML;
-alert(metode==='QRIS' ? 'Tunjukkan QRIS ke pelanggan!' : 'Kuitansi '+no+' dibuat!');
+function filterOmset(f,btn){
+filterAktif=f;
+document.querySelectorAll('#page-omset .filter button').forEach(b=>b.classList.remove('active'));
+btn.classList.add('active');
+renderOmset();
 }
 function renderKalender(){
 const grid=document.getElementById('calGrid');
@@ -184,7 +174,7 @@ dayOrders.forEach(o=>{
 let c=o.status==='selesai' ? '#9CA3AF' : o.paket==='Booster' ? '#EF4444' : '#22C55E';
 dots+='<span class="dot" style="background:'+c+'"></span>';
 });
-html+='<div class="cal-day '+(isSun?'sunday ':'')+(has?'has ':'')+(d===15?'today ':'')+'" onclick="detail('+d+')"><div class="num">'+d+'</div>'+(has?'<div class="cnt">'+dayOrders.length+'</div>':'')+'<div>'+dots+'</div></div>';
+html+='<div class="cal-day '+(isSun?'sunday ':'')+(has?'has ':'')+(d===17?'today ':'')+'" onclick="detail('+d+')"><div class="num">'+d+'</div>'+(has?'<div class="cnt">'+dayOrders.length+'</div>':'')+'<div>'+dots+'</div></div>';
 }
 grid.innerHTML=html;
 }
@@ -194,7 +184,7 @@ const el=document.getElementById('detailTanggal');
 if(!list.length){ el.innerHTML='Tidak ada jadwal tanggal '+d+' Nov 2026'; return; }
 el.innerHTML=list.map(o=>'<div style="background:#0F172A;padding:10px;border-radius:10px;margin-top:8px;display:flex;justify-content:space-between"><span><b>'+o.nama+'</b><br><small>'+o.paket+'</small></span><span class="badge '+(o.status==='selesai'?'badge-done':o.paket==='Booster'?'badge-booster':'badge-slower')+'">'+(o.status==='selesai'?'Sudah Dikirim':o.paket)+'</span></div>').join('');
 }
-renderKalender();
+renderOmset(); renderKalender();
 </script>
 </body>
-                                                                                                                 </html>
+  </html>
