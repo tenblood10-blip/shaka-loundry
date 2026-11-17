@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shaka Laundry - Input Kurir</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:#0A1128;color:#fff;font-family:system-ui,sans-serif;padding:16px;max-width:430px;margin:0 auto}
+h1{font-size:22px;margin:6px 0 4px}
+.sub{color:#94A3B8;font-size:13px;margin-bottom:16px}
+.card{background:#16203A;border-radius:16px;padding:16px;margin-bottom:12px}
+.input{width:100%;background:#1E2A4A;border:none;color:#fff;padding:14px;border-radius:12px;margin:8px 0;font-size:14px;outline:none}
+.pkg{display:flex;gap:10px;margin:10px 0}
+.pkg label{flex:1;background:#1E2A4A;border-radius:12px;padding:14px;text-align:center;cursor:pointer;border:2px solid transparent;font-size:14px;font-weight:700}
+.pkg input{display:none}
+.pkg label:has(input:checked){border-color:#FACC15}
+.btn{width:100%;padding:14px;border:none;border-radius:12px;font-weight:800;font-size:15px;cursor:pointer}
+.btn-green{background:#10B981;color:#fff}.btn-dark{background:#1E2A4A;color:#fff}
+.badge{font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px}
+.badge-booster{background:#EF4444;color:#fff}.badge-slower{background:#22C55E;color:#fff}
+.list-card{background:#16203A;border-radius:14px;padding:14px;margin-bottom:10px;display:flex;justify-content:space-between}
+</style>
+</head>
+<body>
+<div style="display:flex;align-items:center;gap:10px"><div style="width:40px;height:40px;background:#34D399;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:20px;color:#0A1128;font-weight:900">✓</div><b>SHAKA LAUNDRY</b><span style="margin-left:auto;font-size:12px;color:#94A3B8">Mode Kurir</span></div>
+<h1 style="margin-top:16px">Input Order Baru</h1>
+<p class="sub">Khusus kurir keliling - Input di depan pelanggan</p>
+<div class="card">
+<input class="input" id="fNama" placeholder="Nama Pelanggan - contoh: Ibu Siti">
+<input class="input" id="fHp" placeholder="No HP / WA - 0812xxxx">
+<input class="input" id="fAlamat" placeholder="Alamat Lengkap + Patokan">
+<div style="font-weight:700;margin-top:8px">Paket - Pilih 1</div>
+<div class="pkg">
+<label><input type="radio" name="paket" value="Booster" checked onclick="hitung()"><span>🔴 Booster<br>1 Hari<br><small>Rp 10.000 / kg</small></span></label>
+<label><input type="radio" name="paket" value="Slower" onclick="hitung()"><span>🟢 Slower<br>3 Hari<br><small>Rp 7.000 / kg</small></span></label>
+</div>
+<input class="input" id="fBerat" type="number" step="0.1" placeholder="Berat (kg) - timbang di depan pelanggan" oninput="hitung()">
+<div style="font-size:26px;font-weight:900;text-align:center;margin:12px 0" id="totalText">Total: Rp 0</div>
+<button class="btn btn-green" onclick="bayar('QRIS')">Bayar QRIS</button>
+<button class="btn btn-dark" style="margin-top:10px" onclick="bayar('TUNAI')">Bayar Tunai + Kuitansi</button>
+<div id="kuitansi" class="card" style="display:none;margin-top:12px;background:#0F172A">
+<b>SHAKA LAUNDRY</b><br><small id="kIsi"></small><br>
+<button class="btn btn-dark" style="margin-top:10px" onclick="window.print()">Cetak / Simpan Kuitansi</button>
+</div>
+</div>
+<div><b>Order Yang Udah Di-input Hari Ini</b><div id="orderList" style="margin-top:10px"></div></div>
+<p style="text-align:center;color:#64748B;font-size:12px;margin-top:20px">Kurir hanya bisa input order.<br>Tidak bisa melihat omset / data pelanggan.</p>
+<script>
+const HARGA={Booster:10000,Slower:7000};
+function hitung(){
+const berat=parseFloat(document.getElementById('fBerat').value||0);
+const paket=document.querySelector('input[name="paket"]:checked').value;
+document.getElementById('totalText').innerText='Total: Rp '+(berat*HARGA[paket]).toLocaleString('id-ID');
+}
+function bayar(metode){
+const nama=document.getElementById('fNama').value||'Pelanggan';
+const berat=parseFloat(document.getElementById('fBerat').value||0);
+if(!berat){alert('Isi berat dulu!');return;}
+const paket=document.querySelector('input[name="paket"]:checked').value;
+const total=berat*HARGA[paket];
+const no='SHK-'+Math.floor(10000+Math.random()*90000);
+const k=document.getElementById('kuitansi');
+k.style.display='block';
+document.getElementById('kIsi').innerHTML='No: '+no+' | Tgl: 17 Nov 2026<br>Nama: '+nama+' | '+berat+' kg x '+HARGA[paket].toLocaleString('id-ID')+' = Rp '+total.toLocaleString('id-ID')+'<br>Paket: '+paket+' | Bayar: '+metode+'<br>Status: '+(metode==='QRIS'?'LUNAS':'BAYAR SAAT ANTAR');
+document.getElementById('orderList').innerHTML='<div class="list-card"><div><b>'+nama+' - '+paket+'</b><br><small>'+berat+' kg - Rp '+total.toLocaleString('id-ID')+' - '+no+' - '+metode+'</small></div><span class="badge '+(paket==='Booster'?'badge-booster':'badge-slower')+'">'+paket+'</span></div>'+document.getElementById('orderList').innerHTML;
+alert(metode==='QRIS'?'Tunjukkan QRIS ke pelanggan!':'Kuitansi '+no+' dibuat!');
+}
+</script>
+</body>
+  </html>
