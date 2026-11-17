@@ -26,7 +26,7 @@ h1{font-size:22px;margin-bottom:14px}
 .list-card b{font-size:15px}
 .list-card small{color:#64748B;display:block;margin-top:4px;line-height:1.4}
 .badge{background:#14532D;color:#4ADE80;font-size:12px;font-weight:700;padding:5px 10px;border-radius:999px;white-space:nowrap}
-.badge-booster{background:#EF4444;color:#fff}.badge-faster{background:#FACC15;color:#000}.badge-slower{background:#22C55E;color:#fff}.badge-done{background:#9CA3AF;color:#fff}
+.badge-booster{background:#EF4444;color:#fff}.badge-slower{background:#22C55E;color:#fff}.badge-done{background:#9CA3AF;color:#fff}
 .search{width:100%;background:#16203A;border:none;color:#fff;padding:14px 16px;border-radius:999px;font-size:14px;outline:none}
 .filter{display:flex;gap:10px;margin:14px 0}
 .filter button{flex:1;padding:11px;border:none;border-radius:999px;font-weight:700;background:#16203A;color:#94A3B8}
@@ -49,7 +49,7 @@ h1{font-size:22px;margin-bottom:14px}
 .btn-purple{background:#8B5CF6;color:#fff}.btn-green{background:#10B981;color:#fff}.btn-dark{background:#1E2A4A;color:#fff}
 .input{width:100%;background:#1E2A4A;border:none;color:#fff;padding:14px;border-radius:12px;margin:8px 0;font-size:14px;outline:none}
 .pkg{display:flex;gap:10px;margin:10px 0}
-.pkg label{flex:1;background:#1E2A4A;border-radius:12px;padding:12px;text-align:center;cursor:pointer;border:2px solid transparent;font-size:13px;font-weight:700}
+.pkg label{flex:1;background:#1E2A4A;border-radius:12px;padding:14px;text-align:center;cursor:pointer;border:2px solid transparent;font-size:14px;font-weight:700}
 .pkg input{display:none}
 .pkg label:has(input:checked){border-color:#FACC15}
 .bottom{position:fixed;bottom:0;left:0;right:0;background:#0F172A;display:flex;padding:10px 0 14px;border-top:1px solid #1E2A4A;z-index:20}
@@ -87,11 +87,10 @@ h1{font-size:22px;margin-bottom:14px}
 <input class="input" id="fNama" placeholder="Nama Pelanggan - contoh: Ibu Siti">
 <input class="input" id="fHp" placeholder="No HP / WA - 0812xxxx">
 <input class="input" id="fAlamat" placeholder="Alamat Lengkap + Patokan">
-<div style="font-weight:700;margin-top:8px">Paket</div>
+<div style="font-weight:700;margin-top:8px">Paket - Pilih 1</div>
 <div class="pkg">
-<label><input type="radio" name="paket" value="Booster" checked><span>🔴 Booster<br>1 Hari</span></label>
-<label><input type="radio" name="paket" value="Faster"><span>🟡 Faster<br>2 Hari</span></label>
-<label><input type="radio" name="paket" value="Slower"><span>🟢 Slower<br>3 Hari</span></label>
+<label><input type="radio" name="paket" value="Booster" checked onclick="hitung()"><span>🔴 Booster<br>1 Hari<br><small>Rp 10.000 / kg</small></span></label>
+<label><input type="radio" name="paket" value="Slower" onclick="hitung()"><span>🟢 Slower<br>3 Hari<br><small>Rp 7.000 / kg</small></span></label>
 </div>
 <input class="input" id="fBerat" type="number" step="0.1" placeholder="Berat (kg) - timbang di depan pelanggan" oninput="hitung()">
 <div style="font-size:22px;font-weight:900;text-align:center;margin:10px 0" id="totalText">Total: Rp 0</div>
@@ -118,7 +117,7 @@ h1{font-size:22px;margin-bottom:14px}
 <div class="cal-days"><span>Min</span><span>Sen</span><span>Sel</span><span>Rab</span><span>Kam</span><span>Jum</span><span>Sab</span></div>
 <div class="cal-grid" id="calGrid"></div>
 <div class="legend"><span>🟡 Ada kunjungan</span><span>🔴 Minggu (libur)</span></div>
-<div style="margin-top:12px;font-size:12px;line-height:1.5">🔴 Merah = Booster &nbsp; 🟡 Kuning = Faster &nbsp; 🟢 Hijau = Slower &nbsp; ⚪ Abu = Sudah Dikirim</div>
+<div style="margin-top:12px;font-size:12px;line-height:1.5">🔴 Merah = Booster &nbsp; 🟢 Hijau = Slower &nbsp; ⚪ Abu = Sudah Dikirim</div>
 </div>
 <div class="card" style="margin-top:12px"><b>Pilih tanggal untuk lihat jadwal</b><br><small style="color:#64748B">Klik tanggal di kalender untuk melihat detail</small><div id="detailTanggal" style="margin-top:10px"></div></div>
 </div>
@@ -134,10 +133,10 @@ h1{font-size:22px;margin-bottom:14px}
 <button onclick="pindah('produk',this)"><span class="ic2">▣</span>Produk</button>
 </div>
 <script>
-const HARGA={Booster:15000,Faster:10000,Slower:7000};
+const HARGA={Booster:10000,Slower:7000};
 let orders=[
 {nama:'Ibu Siti',paket:'Booster',tglAntar:2,status:'belum'},
-{nama:'Dadan',paket:'Faster',tglAntar:2,status:'belum'},
+{nama:'Dadan',paket:'Slower',tglAntar:2,status:'belum'},
 {nama:'Ibu diany',paket:'Slower',tglAntar:5,status:'belum'},
 {nama:'Ibu iis',paket:'Booster',tglAntar:6,status:'selesai'},
 ];
@@ -166,7 +165,7 @@ const k=document.getElementById('kuitansi');
 k.style.display='block';
 document.getElementById('kIsi').innerHTML='No: '+no+' | Tgl: 17 Nov 2026<br>Nama: '+nama+' | '+berat+' kg x '+HARGA[paket].toLocaleString('id-ID')+' = Rp '+total.toLocaleString('id-ID')+'<br>Paket: '+paket+' | Bayar: '+metode+'<br>Status: '+(metode==='QRIS'?'LUNAS':'BAYAR SAAT ANTAR');
 const list=document.getElementById('orderList');
-list.innerHTML='<div class="list-card"><div><b>'+nama+' - '+paket+'</b><small>'+berat+' kg - Rp '+total.toLocaleString('id-ID')+' - '+no+'</small></div><span class="badge '+(paket==='Booster'?'badge-booster':paket==='Faster'?'badge-faster':'badge-slower')+'">'+paket+'</span></div>'+list.innerHTML;
+list.innerHTML='<div class="list-card"><div><b>'+nama+' - '+paket+'</b><small>'+berat+' kg - Rp '+total.toLocaleString('id-ID')+' - '+no+'</small></div><span class="badge '+(paket==='Booster'?'badge-booster':'badge-slower')+'">'+paket+'</span></div>'+list.innerHTML;
 alert(metode==='QRIS' ? 'Tunjukkan QRIS ke pelanggan!' : 'Kuitansi '+no+' dibuat!');
 }
 function renderKalender(){
@@ -178,7 +177,7 @@ const dayOrders=orders.filter(o=>o.tglAntar===d);
 const has=dayOrders.length>0;
 let dots='';
 dayOrders.forEach(o=>{
-let c=o.status==='selesai' ? '#9CA3AF' : o.paket==='Booster' ? '#EF4444' : o.paket==='Faster' ? '#FACC15' : '#22C55E';
+let c=o.status==='selesai' ? '#9CA3AF' : o.paket==='Booster' ? '#EF4444' : '#22C55E';
 dots+='<span class="dot" style="background:'+c+'"></span>';
 });
 html+='<div class="cal-day '+(isSun?'sunday ':'')+(has?'has ':'')+(d===15?'today ':'')+'" onclick="detail('+d+')"><div class="num">'+d+'</div>'+(has?'<div class="cnt">'+dayOrders.length+'</div>':'')+'<div>'+dots+'</div></div>';
@@ -189,10 +188,9 @@ function detail(d){
 const list=orders.filter(o=>o.tglAntar===d);
 const el=document.getElementById('detailTanggal');
 if(!list.length){ el.innerHTML='Tidak ada jadwal tanggal '+d+' Nov 2026'; return; }
-el.innerHTML=list.map(o=>'<div style="background:#0F172A;padding:10px;border-radius:10px;margin-top:8px;display:flex;justify-content:space-between"><span><b>'+o.nama+'</b><br><small>'+o.paket+'</small></span><span class="badge '+(o.status==='selesai'?'badge-done':o.paket==='Booster'?'badge-booster':o.paket==='Faster'?'badge-faster':'badge-slower')+'">'+(o.status==='selesai'?'Sudah Dikirim':o.paket)+'</span></div>').join('');
+el.innerHTML=list.map(o=>'<div style="background:#0F172A;padding:10px;border-radius:10px;margin-top:8px;display:flex;justify-content:space-between"><span><b>'+o.nama+'</b><br><small>'+o.paket+'</small></span><span class="badge '+(o.status==='selesai'?'badge-done':o.paket==='Booster'?'badge-booster':'badge-slower')+'">'+(o.status==='selesai'?'Sudah Dikirim':o.paket)+'</span></div>').join('');
 }
 renderKalender();
 </script>
 </body>
-                                                                                                                                                     </html>
-  
+                                                                               </html>
