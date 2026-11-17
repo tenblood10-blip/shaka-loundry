@@ -59,6 +59,7 @@ h1{font-size:22px;margin-bottom:14px}
 .prod-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:14px}
 .add-btn{background:#8B5CF6;color:#fff;border:none;padding:10px 16px;border-radius:999px;font-weight:700}
 .price{color:#C084FC;font-weight:900;font-size:17px}
+.prod-card{margin-bottom:12px}
 </style>
 </head>
 <body>
@@ -69,7 +70,7 @@ h1{font-size:22px;margin-bottom:14px}
 <div class="card"><div class="ic bg-green">$</div><div class="angka">Rp 2.250.000</div><div class="label">Total Omset</div><div class="sub">15 pembayaran diterima</div></div>
 <div class="card"><div class="ic bg-blue">◉</div><div class="angka">15</div><div class="label">Pelanggan Aktif</div><div class="sub">0 belum aktif</div></div>
 <div class="card"><div class="ic bg-orange">▦</div><div class="angka">0</div><div class="label">Jadwal Hari Ini</div><div class="sub">0 sudah dicek</div></div>
-<div class="card"><div class="ic bg-purple">▣</div><div class="angka">1</div><div class="label">Total Produk</div><div class="sub">100 stok tersisa</div></div>
+<div class="card"><div class="ic bg-purple">▣</div><div class="angka">4</div><div class="label">Total Produk</div><div class="sub">Stok aman</div></div>
 <div class="card"><div class="ic bg-red">+</div><div class="angka">1</div><div class="label">Kurir Aktif</div><div class="sub">1 total kurir</div></div>
 <div class="card"><div class="ic bg-violet">~</div><div class="angka">12</div><div class="label">Cucian Tercatat</div><div class="sub">Total cucian</div></div>
 </div>
@@ -123,7 +124,10 @@ h1{font-size:22px;margin-bottom:14px}
 </div>
 <div id="page-produk" class="page">
 <div class="prod-head"><h1 style="margin:0">Produk & Inventory</h1><button class="add-btn">+ Tambah</button></div>
-<div class="card"><div style="display:flex;justify-content:space-between"><div class="ic bg-purple">▣</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Kelapa Ijo</b><br><small style="color:#64748B">Kelapa ijo segar pilihan</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 37.500</span><span class="badge">Stok: 100</span></div><small style="color:#64748B">Kategori: Minuman</small></div>
+<div class="card prod-card"><div style="display:flex;justify-content:space-between"><div class="ic bg-red">🔴</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Cuci + Setrika Booster</b><br><small style="color:#64748B">Selesai 1 Hari - Antar Jemput</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 10.000 / kg</span><span class="badge badge-booster">Booster</span></div><small style="color:#64748B">Kategori: Cuci Kiloan</small></div>
+<div class="card prod-card"><div style="display:flex;justify-content:space-between"><div class="ic bg-green">🟢</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Cuci + Setrika Slower</b><br><small style="color:#64748B">Selesai 3 Hari - Antar Jemput</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 7.000 / kg</span><span class="badge badge-slower">Slower</span></div><small style="color:#64748B">Kategori: Cuci Kiloan</small></div>
+<div class="card prod-card"><div style="display:flex;justify-content:space-between"><div class="ic bg-blue">🛏️</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Bed Cover / Selimut</b><br><small style="color:#64748B">Cuci satuan, wangi & lembut</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 25.000 / pcs</span><span class="badge">Stok: Ready</span></div><small style="color:#64748B">Kategori: Satuan</small></div>
+<div class="card prod-card"><div style="display:flex;justify-content:space-between"><div class="ic bg-purple">👟</div><div>✏️ 🗑️</div></div><b style="font-size:17px">Sepatu / Tas</b><br><small style="color:#64748B">Cuci deep clean, tidak merusak bahan</small><div style="display:flex;justify-content:space-between;margin-top:10px;align-items:center"><span class="price">Rp 20.000 / pasang</span><span class="badge">Stok: Ready</span></div><small style="color:#64748B">Kategori: Satuan</small></div>
 </div>
 <div class="bottom">
 <button class="active" onclick="pindah('beranda',this)"><span class="ic2">▦</span>Beranda</button>
@@ -193,4 +197,4 @@ el.innerHTML=list.map(o=>'<div style="background:#0F172A;padding:10px;border-rad
 renderKalender();
 </script>
 </body>
-                                                                               </html>
+                                                                                                                 </html>
